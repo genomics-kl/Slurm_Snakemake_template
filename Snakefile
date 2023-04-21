@@ -35,7 +35,7 @@ rule hello_world:
     benchmark:
         "benchmarks/hello_world/hello_world_{index}.txt"
     params:
-    threads: 1
+    threads: lambda wildcards: int(wildcards.index)
     resources:
         mem_gb=8
     envmodules:
