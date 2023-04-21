@@ -44,5 +44,7 @@ rule hello_world:
         for i in {{1..{wildcards.index}}}
         do
             echo "Hello world" >> {output}
+            echo "Hello world out"
+            echo "Hello world err" 2> {log.stderr}
         done
         """

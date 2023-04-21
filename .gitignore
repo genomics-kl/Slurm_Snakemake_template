@@ -1,2 +1,6 @@
 .snakemake
-
+tmp
+analysis
+benchmarks
+logs
+hello_workflow.*
