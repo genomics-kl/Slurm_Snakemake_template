@@ -29,21 +29,22 @@ rule hello_world:
         
     output:
         "analysis/hello_world/hello_world_{index}.txt"
-    log:
+    params:
         stdout="logs/hello_world/hello_world_{index}.o",
         stderr="logs/hello_world/hello_world_{index}.e",
     benchmark:
         "benchmarks/hello_world/hello_world_{index}.txt"
-    params:
     threads: lambda wildcards: int(wildcards.index)
     resources:
         mem_gb=8
     envmodules:
     shell:
         """
+        echo "Running proc results in `nproc`"
+
         for i in {{1..{wildcards.index}}}
         do
-            echo `nproc` >> {output}
+            echo "Hello" >> {output}
             echo "Hello world out"
             echo "Hello world err" 1>&2
         done
