@@ -43,8 +43,8 @@ rule hello_world:
         """
         for i in {{1..{wildcards.index}}}
         do
-            echo "Hello world" >> {output}
+            echo `nproc` >> {output}
             echo "Hello world out"
-            echo "Hello world err" 2> {log.stderr}
+            echo "Hello world err" 1>&2
         done
         """
