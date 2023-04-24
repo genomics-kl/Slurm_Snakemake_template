@@ -33,8 +33,8 @@ snakemake \
 --ntasks {threads} \
 --mem={resources.mem_gb}G \
 -t 48:00:00 \
--o logs/{rule}/{wildcards}.o \
--e logs/{rule}/{wildcards}.e'" # SLURM hangs if output dir does not exist, so we create it before running sbatch on the snakemake jobs.
+-o logs/{rule}/{resources.log_prefix}.o \
+-e logs/{rule}/{resources.log_prefix}.e'" # SLURM hangs if output dir does not exist, so we create it before running sbatch on the snakemake jobs.
 #--slurm \
 #--default-resources slurm_account=${SLURM_JOB_USER} slurm_partition=${SLURM_JOB_PARTITION}
 

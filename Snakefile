@@ -34,7 +34,8 @@ rule hello_world:
         "benchmarks/hello_world/hello_world_{index}_{barcode}.txt"
     threads: lambda wildcards: int(wildcards.index)
     resources:
-        mem_gb=8
+        mem_gb=8,
+        log_prefix=lambda wildcards: "_".join(wildcards)
     envmodules:
     shell:
         """
