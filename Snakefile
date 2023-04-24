@@ -18,7 +18,7 @@ if not os.path.exists(tmp_dir):
 
 rule all:
     input:
-        expand("analysis/hello_world/hello_world_{index}.txt", index=[1,2,3])
+        expand("analysis/hello_world/hello_world_{index}_{barcode}.txt", index=[1,2,3], barcode=["foo"])
 
 
 rule hello_world:
@@ -28,19 +28,17 @@ rule hello_world:
     input:
         
     output:
-        "analysis/hello_world/hello_world_{index}.txt"
+        "analysis/hello_world/hello_world_{index}_{barcode}.txt"
     params:
-        stdout="logs/hello_world/hello_world_{index}.o",
-        stderr="logs/hello_world/hello_world_{index}.e",
     benchmark:
-        "benchmarks/hello_world/hello_world_{index}.txt"
+        "benchmarks/hello_world/hello_world_{index}_{barcode}.txt"
     threads: lambda wildcards: int(wildcards.index)
     resources:
         mem_gb=8
     envmodules:
     shell:
         """
-        echo "Running proc results in `nproc`"
+        echo "Running proc results in `nproc`" > {output}
 
         for i in {{1..{wildcards.index}}}
         do

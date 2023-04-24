@@ -27,14 +27,14 @@ snakemake \
 --snakefile 'Snakefile' \
 --use-envmodules \
 --jobs 100 \
---cluster "ssh ${SLURM_JOB_USER}@access.hpc.vai.org 'module load $snakemake_module; cd $SLURM_SUBMIT_DIR; mkdir -p \`dirname {params.stdout}\`; sbatch \
+--cluster "ssh ${SLURM_JOB_USER}@access.hpc.vai.org 'module load $snakemake_module; cd $SLURM_SUBMIT_DIR; mkdir -p logs/{rule}; sbatch \
 -p ${SLURM_JOB_PARTITION} \
 --export=ALL \
 --ntasks {threads} \
 --mem={resources.mem_gb}G \
 -t 48:00:00 \
--o {params.stdout} \
--e {params.stderr}'" # SLURM hangs if output dir does not exist, so we create it before running sbatch on the snakemake jobs.
+-o logs/{rule}/{wildcards}.o \
+-e logs/{rule}/{wildcards}.e'" # SLURM hangs if output dir does not exist, so we create it before running sbatch on the snakemake jobs.
 #--slurm \
 #--default-resources slurm_account=${SLURM_JOB_USER} slurm_partition=${SLURM_JOB_PARTITION}
 
